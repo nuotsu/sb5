@@ -13,7 +13,15 @@ const config = {
 			return isExternalLibrary ? undefined : true
 		},
 	},
-	kit: { adapter: adapter() },
+	kit: {
+		adapter: adapter(),
+
+		alias: {
+			$lib: 'src/lib',
+			$auth: 'src/lib/auth',
+			$ui: 'src/ui',
+		},
+	},
 }
 
 export default config
