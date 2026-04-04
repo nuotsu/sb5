@@ -27,10 +27,6 @@
 		cursor: pointer;
 	}
 
-	button {
-		@apply action;
-	}
-
 	input,
 	select {
 		@apply bg-transparent outline outline-current;
@@ -75,7 +71,7 @@
 }
 
 @utility link {
-	@apply underline not-hover:decoration-dashed;
+	@apply cursor-pointer underline not-hover:decoration-dashed;
 }
 
 /* components */

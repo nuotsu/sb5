@@ -25,7 +25,7 @@
 			name,
 			email,
 			password,
-			callbackURL: '/dashboard',
+			callbackURL: '/',
 		})
 		loading = false
 
@@ -35,7 +35,7 @@
 		}
 
 		await authClient.useSession().get().refetch()
-		await goto('/dashboard', { invalidateAll: true })
+		await goto('/', { invalidateAll: true })
 	}
 </script>
 
@@ -83,7 +83,7 @@
 		<p role="alert">{message}</p>
 	{/if}
 
-	<button type="submit" disabled={loading}>
+	<button class="action" type="submit" disabled={loading}>
 		{#if loading}
 			<loading>Signing up</loading>
 		{:else}

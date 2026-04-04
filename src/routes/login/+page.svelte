@@ -25,7 +25,7 @@
 		const res = await authClient.signIn.email({
 			email,
 			password,
-			callbackURL: '/dashboard',
+			callbackURL: '/',
 		})
 		loading = false
 
@@ -35,7 +35,7 @@
 		}
 
 		await authClient.useSession().get().refetch()
-		await goto('/dashboard', { invalidateAll: true })
+		await goto('/', { invalidateAll: true })
 	}
 </script>
 
@@ -44,7 +44,7 @@
 {#if auth.isPending}
 	<p>Loading…</p>
 {:else if auth.user}
-	<p>You are signed in as {auth.user.email}. <a href="/dashboard">Dashboard</a></p>
+	<p>You are signed in as {auth.user.email}.</p>
 {:else}
 	<form class="grid" method="post" onsubmit={signIn}>
 		<label>
@@ -83,7 +83,7 @@
 			<p role="alert">{message}</p>
 		{/if}
 
-		<button type="submit" disabled={loading}>
+		<button class="action" type="submit" disabled={loading}>
 			{#if loading}
 				<loading>Signing in</loading>
 			{:else}
