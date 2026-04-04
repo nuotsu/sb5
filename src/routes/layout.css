@@ -22,7 +22,8 @@
 		@apply bg-background font-mono text-foreground caret-accent accent-accent;
 	}
 
-	label {
+	label,
+	summary {
 		cursor: pointer;
 	}
 
@@ -75,4 +76,26 @@
 
 @utility link {
 	@apply underline not-hover:decoration-dashed;
+}
+
+/* components */
+
+@utility dropdown {
+	summary {
+		display: block;
+		anchor-name: var(--anchor);
+	}
+
+	::-webkit-details-marker {
+		display: none;
+	}
+
+	& > *:not(summary) {
+		@apply absolute bg-background outline outline-current;
+
+		position-anchor: var(--anchor);
+		position-area: end span-end;
+		position-try-fallbacks: flip-inline;
+		min-width: max-content;
+	}
 }
