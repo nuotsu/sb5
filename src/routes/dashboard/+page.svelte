@@ -21,11 +21,15 @@
 <h1>Dashboard</h1>
 
 {#if auth.isPending}
-	<p>Loading session…</p>
+	<loading>Loading session</loading>
 {:else if auth.user}
 	<p>Signed in as {auth.user.email}</p>
 	<button type="button" disabled={signingOut} onclick={signOut}>
-		{signingOut ? 'Signing out…' : 'Sign out'}
+		{#if signingOut}
+			<loading>Signing out</loading>
+		{:else}
+			Sign out
+		{/if}
 	</button>
 {:else}
 	<p>

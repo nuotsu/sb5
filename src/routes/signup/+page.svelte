@@ -83,7 +83,13 @@
 		<p role="alert">{message}</p>
 	{/if}
 
-	<button type="submit" disabled={loading}>{loading ? 'Signing up…' : 'Sign up'}</button>
+	<button type="submit" disabled={loading}>
+		{#if loading}
+			<loading>Signing up</loading>
+		{:else}
+			Sign up
+		{/if}
+	</button>
 </form>
 
 <p><a href="/login">Sign in</a> · <a href="/">Home</a></p>
