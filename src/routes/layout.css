@@ -29,7 +29,7 @@
 
 	input,
 	select {
-		@apply bg-transparent outline outline-current;
+		@apply bg-transparent outline outline-current focus-visible:outline focus-visible:outline-dashed;
 	}
 
 	a {

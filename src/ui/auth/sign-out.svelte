@@ -11,7 +11,7 @@
 		loading = true
 		try {
 			await authClient.signOut()
-			await goto('/login', { invalidateAll: true })
+			await goto('/', { invalidateAll: true })
 		} finally {
 			loading = false
 		}

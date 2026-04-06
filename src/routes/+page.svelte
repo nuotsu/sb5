@@ -1,1 +1,5 @@
-<h1>Homepage</h1>
+<script lang="ts">
+	import Dashboard from '$ui/dashboard/grid.svelte'
+</script>
+
+<Dashboard />

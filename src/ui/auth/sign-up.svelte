@@ -1,12 +1,16 @@
 <script lang="ts">
 	import { goto } from '$app/navigation'
 	import { authClient } from '$lib/auth/client'
+	import { cn } from '$lib/utils'
+	import PasswordField from '$ui/auth/password-field.svelte'
+	import type { HTMLAttributes } from 'svelte/elements'
+
+	let { class: className, ...props }: HTMLAttributes<HTMLFormElement> = $props()
 
 	let loading = $state(false)
-	let showPassword = $state(false)
 	let message = $state<string | undefined>(undefined)
 
-	async function signUp(e: SubmitEvent) {
+	async function onsubmit(e: SubmitEvent) {
 		e.preventDefault()
 		const form = e.currentTarget as HTMLFormElement
 		const fd = new FormData(form)
@@ -39,15 +43,14 @@
 	}
 </script>
 
-<h1>Create account</h1>
-
-<form class="grid" method="post" onsubmit={signUp}>
-	<label>
-		Name<br />
+<form class={cn('grid gap-ch', className)} method="post" {onsubmit} {...props}>
+	<label class="grid">
+		Name
 		<input name="name" placeholder="Shohei Ohtani" autocomplete="name" required />
 	</label>
-	<label>
-		Email<br />
+
+	<label class="grid">
+		Email
 		<input
 			type="email"
 			name="email"
@@ -57,27 +60,7 @@
 		/>
 	</label>
 
-	<div>
-		<label>
-			Password<br />
-			<input
-				name="password"
-				type={showPassword ? 'text' : 'password'}
-				autocomplete="new-password"
-				minlength="8"
-				required
-			/>
-		</label>
-
-		<label>
-			<input type="checkbox" bind:checked={showPassword} />
-			{#if showPassword}
-				Hide password
-			{:else}
-				Show password
-			{/if}
-		</label>
-	</div>
+	<PasswordField autocomplete="new-password" minlength={8} />
 
 	{#if message}
 		<p role="alert">{message}</p>
@@ -91,5 +74,3 @@
 		{/if}
 	</button>
 </form>
-
-<p><a href="/login">Sign in</a> · <a href="/">Home</a></p>
