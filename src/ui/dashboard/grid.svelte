@@ -2,14 +2,17 @@
 	import { setContext } from 'svelte'
 	import Cell from './cell.svelte'
 	import NewCell from './new-cell.svelte'
-	import { cells } from './store.svelte.ts'
+	import { cells, scheduleSave } from './store.svelte.ts'
 
 	let gridEl = $state<HTMLElement>()
 	let isMobile = $state(false)
 
 	function updateCell(id: string, update: Partial<Dashboard.Cell>) {
 		const idx = cells.findIndex((c) => c.id === id)
-		if (idx >= 0) Object.assign(cells[idx], update)
+		if (idx >= 0) {
+			Object.assign(cells[idx], update)
+			scheduleSave()
+		}
 	}
 
 	function reorderCells(fromId: string, toId: string) {
@@ -19,6 +22,7 @@
 		const tmp = from.order
 		from.order = to.order
 		to.order = tmp
+		scheduleSave()
 	}
 
 	setContext<Dashboard.GridContext>('grid', {

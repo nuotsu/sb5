@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cells } from './store.svelte.ts'
+	import { cells, scheduleSave } from './store.svelte.ts'
 
 	const options: {
 		type: string
@@ -11,7 +11,7 @@
 <div class="order-last grid place-content-center border border-dashed not-edit:hidden">
 	New:
 	<select bind:value={type}>
-		{#each options as { type: label }}
+		{#each options as { type: label } (label)}
 			<option value={label}>{label}</option>
 		{/each}
 	</select>
@@ -27,6 +27,7 @@
 				order: cells.length,
 				type,
 			})
+			scheduleSave()
 		}}
 		disabled={!type}
 	>
