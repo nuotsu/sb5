@@ -8,6 +8,7 @@
 </script>
 
 <svelte:head>
+	<title>sb5</title>
 	<link rel="icon" href={favicon} />
 </svelte:head>
 

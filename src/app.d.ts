@@ -11,7 +11,7 @@ declare global {
 
 	namespace Dashboard {
 		type Cell = {
-			id: number
+			id: string
 			colSpan: number
 			rowSpan: number
 			order: number
@@ -21,7 +21,7 @@ declare global {
 			readonly el: HTMLElement | undefined
 			readonly isMobile: boolean
 			cols: number
-			reorderCells: (fromId: number, toId: number) => void
+			reorderCells: (fromId: string, toId: string) => void
 		}
 	}
 }

@@ -2,22 +2,17 @@
 	import { setContext } from 'svelte'
 	import Cell from './cell.svelte'
 	import NewCell from './new-cell.svelte'
+	import { cells } from './store.svelte.ts'
 
 	let gridEl = $state<HTMLElement>()
 	let isMobile = $state(false)
 
-	const cells = $state<Dashboard.Cell[]>([
-		{ id: 0, colSpan: 1, rowSpan: 1, order: 0 },
-		{ id: 1, colSpan: 1, rowSpan: 1, order: 1 },
-		{ id: 2, colSpan: 1, rowSpan: 1, order: 2 },
-	])
-
-	function updateCell(id: number, update: Partial<Dashboard.Cell>) {
+	function updateCell(id: string, update: Partial<Dashboard.Cell>) {
 		const idx = cells.findIndex((c) => c.id === id)
 		if (idx >= 0) Object.assign(cells[idx], update)
 	}
 
-	function reorderCells(fromId: number, toId: number) {
+	function reorderCells(fromId: string, toId: string) {
 		const from = cells.find((c) => c.id === fromId)
 		const to = cells.find((c) => c.id === toId)
 		if (!from || !to || from === to) return

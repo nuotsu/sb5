@@ -73,7 +73,7 @@
 			const els = document.elementsFromPoint(e.clientX, e.clientY)
 			const target = els.find((el) => el.hasAttribute('data-cell-id') && el !== articleEl)
 			if (target) {
-				const targetId = Number(target.getAttribute('data-cell-id'))
+				const targetId = target.getAttribute('data-cell-id')!
 				grid.reorderCells(cell.id, targetId)
 			}
 		}
@@ -92,9 +92,9 @@
 <article
 	bind:this={articleEl}
 	data-cell-id={cell.id}
-	class="relative border border-current {cursor}"
-	style:grid-column={grid.isMobile ? 'span 1' : `span ${cell.colSpan}`}
-	style:grid-row={grid.isMobile ? 'span 1' : `span ${cell.rowSpan}`}
+	class="relative border border-current {cursor} max-md:col-span-1!"
+	style:grid-column="span {cell.colSpan}"
+	style:grid-row="span {cell.rowSpan}"
 	style:order={cell.order}
 	style:border-top-style={hoveredSide === 'top' ? 'dashed' : 'solid'}
 	style:border-right-style={hoveredSide === 'right' ? 'dashed' : 'solid'}
@@ -105,49 +105,47 @@
 >
 	{@render children()}
 
-	{#if !grid.isMobile}
-		<!-- Top: reorder -->
-		<div
-			class={cn(
-				'absolute inset-x-0 top-0 z-10 h-2 not-edit:hidden',
-				dragState?.side === 'top' ? 'cursor-grabbing' : 'cursor-grab',
-			)}
-			onpointerenter={() => (hoveredSide = 'top')}
-			onpointerleave={() => {
-				if (!dragState) hoveredSide = null
-			}}
-			onpointerdown={(e) => startDrag(e, 'top')}
-			role="presentation"
-		></div>
-		<!-- Right: col resize -->
-		<div
-			class="absolute inset-y-0 right-0 z-10 w-2 cursor-ew-resize not-edit:hidden"
-			onpointerenter={() => (hoveredSide = 'right')}
-			onpointerleave={() => {
-				if (!dragState) hoveredSide = null
-			}}
-			onpointerdown={(e) => startDrag(e, 'right')}
-			role="presentation"
-		></div>
-		<!-- Bottom: row resize -->
-		<div
-			class="absolute inset-x-0 bottom-0 z-10 h-2 cursor-ns-resize not-edit:hidden"
-			onpointerenter={() => (hoveredSide = 'bottom')}
-			onpointerleave={() => {
-				if (!dragState) hoveredSide = null
-			}}
-			onpointerdown={(e) => startDrag(e, 'bottom')}
-			role="presentation"
-		></div>
-		<!-- Left: col resize -->
-		<div
-			class="absolute inset-y-0 left-0 z-10 w-2 cursor-ew-resize not-edit:hidden"
-			onpointerenter={() => (hoveredSide = 'left')}
-			onpointerleave={() => {
-				if (!dragState) hoveredSide = null
-			}}
-			onpointerdown={(e) => startDrag(e, 'left')}
-			role="presentation"
-		></div>
-	{/if}
+	<!-- Top: reorder -->
+	<div
+		class={cn(
+			'absolute inset-x-0 top-0 z-10 h-2 max-md:hidden not-edit:hidden',
+			dragState?.side === 'top' ? 'cursor-grabbing' : 'cursor-grab',
+		)}
+		onpointerenter={() => (hoveredSide = 'top')}
+		onpointerleave={() => {
+			if (!dragState) hoveredSide = null
+		}}
+		onpointerdown={(e) => startDrag(e, 'top')}
+		role="presentation"
+	></div>
+	<!-- Right: col resize -->
+	<div
+		class="absolute inset-y-0 right-0 z-10 w-2 cursor-ew-resize max-md:hidden not-edit:hidden"
+		onpointerenter={() => (hoveredSide = 'right')}
+		onpointerleave={() => {
+			if (!dragState) hoveredSide = null
+		}}
+		onpointerdown={(e) => startDrag(e, 'right')}
+		role="presentation"
+	></div>
+	<!-- Bottom: row resize -->
+	<div
+		class="absolute inset-x-0 bottom-0 z-10 h-2 cursor-ns-resize max-md:hidden not-edit:hidden"
+		onpointerenter={() => (hoveredSide = 'bottom')}
+		onpointerleave={() => {
+			if (!dragState) hoveredSide = null
+		}}
+		onpointerdown={(e) => startDrag(e, 'bottom')}
+		role="presentation"
+	></div>
+	<!-- Left: col resize -->
+	<div
+		class="absolute inset-y-0 left-0 z-10 w-2 cursor-ew-resize max-md:hidden not-edit:hidden"
+		onpointerenter={() => (hoveredSide = 'left')}
+		onpointerleave={() => {
+			if (!dragState) hoveredSide = null
+		}}
+		onpointerdown={(e) => startDrag(e, 'left')}
+		role="presentation"
+	></div>
 </article>

@@ -1,17 +1,29 @@
 <script lang="ts">
+	import { cells } from './store.svelte.ts'
+
 	const options: {
 		type: string
 	}[] = [{ type: 'Bogus' }]
+
+	let type = $state('')
 </script>
 
-<button
-	class="order-last grid cursor-pointer place-content-center border border-dashed not-edit:hidden"
-	onclick={() => {}}
->
-	Add new:
-	<select>
+<div class="order-last grid place-content-center border border-dashed not-edit:hidden">
+	New:
+	<select bind:value={type}>
 		{#each options as { type: label }}
-			<option>{label}</option>
+			<option value={label}>{label}</option>
 		{/each}
 	</select>
-</button>
+
+	<button
+		class="action cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+		onclick={() => {
+			if (!type) return
+			cells.push({ id: crypto.randomUUID(), colSpan: 1, rowSpan: 1, order: cells.length })
+		}}
+		disabled={!type}
+	>
+		Add</button
+	>
+</div>
