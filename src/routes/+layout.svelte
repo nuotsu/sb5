@@ -2,6 +2,7 @@
 	import './layout.css'
 	import favicon from '$lib/assets/favicon.svg'
 	import AccountDropdown from '$ui/auth/account-dropdown.svelte'
+	import DashboardSettings from '$ui/dashboard/settings.svelte'
 
 	let { children } = $props()
 </script>
@@ -13,7 +14,10 @@
 <header class="flex justify-between gap-ch p-ch">
 	<a href="/">sb5</a>
 
-	<AccountDropdown />
+	<div class="flex flex-wrap gap-ch">
+		<DashboardSettings name="header" />
+		<AccountDropdown name="header" />
+	</div>
 </header>
 
-<main>{@render children()}</main>
+<main class="grid gap-ch p-ch">{@render children()}</main>

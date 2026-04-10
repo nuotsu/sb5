@@ -109,7 +109,7 @@
 		<!-- Top: reorder -->
 		<div
 			class={cn(
-				'absolute inset-x-0 top-0 z-10 h-2',
+				'absolute inset-x-0 top-0 z-10 h-2 not-edit:hidden',
 				dragState?.side === 'top' ? 'cursor-grabbing' : 'cursor-grab',
 			)}
 			onpointerenter={() => (hoveredSide = 'top')}
@@ -121,7 +121,7 @@
 		></div>
 		<!-- Right: col resize -->
 		<div
-			class="absolute inset-y-0 right-0 z-10 w-2 cursor-ew-resize"
+			class="absolute inset-y-0 right-0 z-10 w-2 cursor-ew-resize not-edit:hidden"
 			onpointerenter={() => (hoveredSide = 'right')}
 			onpointerleave={() => {
 				if (!dragState) hoveredSide = null
@@ -131,7 +131,7 @@
 		></div>
 		<!-- Bottom: row resize -->
 		<div
-			class="absolute inset-x-0 bottom-0 z-10 h-2 cursor-ns-resize"
+			class="absolute inset-x-0 bottom-0 z-10 h-2 cursor-ns-resize not-edit:hidden"
 			onpointerenter={() => (hoveredSide = 'bottom')}
 			onpointerleave={() => {
 				if (!dragState) hoveredSide = null
@@ -141,7 +141,7 @@
 		></div>
 		<!-- Left: col resize -->
 		<div
-			class="absolute inset-y-0 left-0 z-10 w-2 cursor-ew-resize"
+			class="absolute inset-y-0 left-0 z-10 w-2 cursor-ew-resize not-edit:hidden"
 			onpointerenter={() => (hoveredSide = 'left')}
 			onpointerleave={() => {
 				if (!dragState) hoveredSide = null

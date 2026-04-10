@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { setContext } from 'svelte'
 	import Cell from './cell.svelte'
+	import NewCell from './new-cell.svelte'
 
 	let gridEl = $state<HTMLElement>()
 	let isMobile = $state(false)
@@ -47,7 +48,7 @@
 
 <section
 	bind:this={gridEl}
-	class="grid gap-ch p-ch"
+	class="isolate grid gap-ch"
 	style:grid-template-columns={isMobile ? '1fr' : 'repeat(3, 1fr)'}
 	style:grid-auto-rows="10lh"
 >
@@ -56,4 +57,6 @@
 			{cell.id}
 		</Cell>
 	{/each}
+
+	<NewCell />
 </section>

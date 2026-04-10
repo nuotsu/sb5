@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Dashboard from '$ui/dashboard/grid.svelte'
+	import Grid from '$ui/dashboard/grid.svelte'
 </script>
 
-<Dashboard />
+<Grid />

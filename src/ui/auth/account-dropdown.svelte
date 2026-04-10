@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { dropdown } from '$lib/attachments'
 	import { useAuthSession } from '$lib/auth/session.svelte'
 	import type { Component } from 'svelte'
 	import Login from './login.svelte'
 	import SignOut from './sign-out.svelte'
 	import SignUp from './sign-up.svelte'
+
+	let { name }: { name?: string } = $props()
 
 	const auth = useAuthSession()
 
@@ -17,7 +18,7 @@
 	]
 </script>
 
-<details class="dropdown" style:--anchor="--account-dropdown">
+<details class="dropdown" style:--anchor="--account-dropdown" {name}>
 	<summary class="link">Account</summary>
 
 	<nav class="grid gap-ch p-ch">

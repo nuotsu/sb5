@@ -17,6 +17,9 @@
 	--spacing-lh: 1lh;
 }
 
+@variant edit (html:has(#edit-dashboard:checked) &);
+@variant not-edit (html:not(:has(#edit-dashboard:checked)) &);
+
 @layer base {
 	html {
 		@apply bg-background font-mono text-foreground caret-accent accent-accent;
@@ -87,7 +90,7 @@
 	}
 
 	& > *:not(summary) {
-		@apply absolute bg-background outline outline-current;
+		@apply absolute z-1 bg-background outline outline-current;
 
 		position-anchor: var(--anchor);
 		position-area: end span-end;
