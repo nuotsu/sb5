@@ -49,7 +49,9 @@
 >
 	{#each cells as cell (cell.id)}
 		<Cell {cell} onupdate={(u) => updateCell(cell.id, u)}>
-			{cell.id}
+			<span class="text-current/50">{cell.id}</span>
+
+			<h2>{cell.type}</h2>
 		</Cell>
 	{/each}
 

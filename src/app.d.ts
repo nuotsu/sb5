@@ -15,6 +15,7 @@ declare global {
 			colSpan: number
 			rowSpan: number
 			order: number
+			type: string
 		}
 
 		type GridContext = {

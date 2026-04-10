@@ -20,7 +20,13 @@
 		class="action cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
 		onclick={() => {
 			if (!type) return
-			cells.push({ id: crypto.randomUUID(), colSpan: 1, rowSpan: 1, order: cells.length })
+			cells.push({
+				id: crypto.randomUUID(),
+				colSpan: 1,
+				rowSpan: 1,
+				order: cells.length,
+				type,
+			})
 		}}
 		disabled={!type}
 	>
