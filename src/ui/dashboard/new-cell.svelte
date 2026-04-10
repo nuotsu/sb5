@@ -1,9 +1,5 @@
 <script lang="ts">
-	import { cells, scheduleSave } from './store.svelte.ts'
-
-	const options: {
-		type: string
-	}[] = [{ type: 'Bogus' }]
+	import { cells, cellTypes, scheduleSave } from './store.svelte.ts'
 
 	let type = $state('')
 </script>
@@ -11,13 +7,15 @@
 <div class="order-last grid place-content-center border border-dashed not-edit:hidden">
 	New:
 	<select bind:value={type}>
-		{#each options as { type: label } (label)}
+		<option disabled>Select a type</option>
+
+		{#each cellTypes as { type: label } (label)}
 			<option value={label}>{label}</option>
 		{/each}
 	</select>
 
 	<button
-		class="action cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+		class="action disabled:cursor-not-allowed disabled:opacity-50"
 		onclick={() => {
 			if (!type) return
 			cells.push({
@@ -28,6 +26,7 @@
 				type,
 			})
 			scheduleSave()
+			type = ''
 		}}
 		disabled={!type}
 	>

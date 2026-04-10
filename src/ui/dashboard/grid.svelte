@@ -2,7 +2,7 @@
 	import { setContext } from 'svelte'
 	import Cell from './cell.svelte'
 	import NewCell from './new-cell.svelte'
-	import { cells, scheduleSave } from './store.svelte.ts'
+	import { cells, removeCell, scheduleSave } from './store.svelte.ts'
 
 	let gridEl = $state<HTMLElement>()
 	let isMobile = $state(false)
@@ -52,11 +52,7 @@
 	style:grid-auto-rows="10lh"
 >
 	{#each cells as cell (cell.id)}
-		<Cell {cell} onupdate={(u) => updateCell(cell.id, u)}>
-			<span class="text-current/50">{cell.id}</span>
-
-			<h2>{cell.type}</h2>
-		</Cell>
+		<Cell {cell} onupdate={(u) => updateCell(cell.id, u)} onremove={() => removeCell(cell.id)} />
 	{/each}
 
 	<NewCell />

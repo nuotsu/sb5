@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { cn } from '$lib/utils'
-	import type { Snippet } from 'svelte'
 	import { getContext } from 'svelte'
+	import CellResolver from './cell-resolver.svelte'
 
 	let {
 		cell,
 		onupdate,
-		children,
+		onremove,
 	}: {
 		cell: Dashboard.Cell
 		onupdate: (u: Partial<Dashboard.Cell>) => void
-		children: Snippet
+		onremove: () => void
 	} = $props()
 
 	const grid = getContext<Dashboard.GridContext>('grid')
@@ -24,6 +24,7 @@
 		startRowSpan: number
 	}
 
+	let confirming = $state(false)
 	let hoveredSide = $state<Side | null>(null)
 	let dragState = $state<DragState | null>(null)
 	let articleEl = $state<HTMLElement>()
@@ -103,7 +104,7 @@
 	{onpointermove}
 	{onpointerup}
 >
-	{@render children()}
+	<CellResolver {cell} />
 
 	<!-- Top: reorder -->
 	<div
@@ -148,4 +149,16 @@
 		onpointerdown={(e) => startDrag(e, 'left')}
 		role="presentation"
 	></div>
+
+	<!-- remove -->
+	<div
+		class="absolute top-0 right-0 m-ch flex gap-ch outline outline-dashed has-[.link]:px-ch max-md:hidden not-edit:hidden"
+	>
+		{#if confirming}
+			<button class="link" onclick={() => onremove()} aria-label="Confirm remove">Remove</button>
+			<button class="link" onclick={() => (confirming = false)} aria-label="Cancel">Cancel</button>
+		{:else}
+			<button class="size-lh" onclick={() => (confirming = true)} title="Remove"> &times; </button>
+		{/if}
+	</div>
 </article>

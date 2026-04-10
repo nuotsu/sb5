@@ -30,6 +30,10 @@
 		cursor: pointer;
 	}
 
+	button {
+		cursor: pointer;
+	}
+
 	input,
 	select {
 		@apply bg-transparent outline outline-current focus-visible:outline focus-visible:outline-dashed;
