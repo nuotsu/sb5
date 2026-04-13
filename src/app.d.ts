@@ -24,6 +24,10 @@ declare global {
 			cols: number
 			reorderCells: (fromId: string, toId: string) => void
 		}
+
+		type CellContext = {
+			registerOptions: (snippet: import('svelte').Snippet) => void
+		}
 	}
 }
 

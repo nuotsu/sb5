@@ -1,19 +1,28 @@
 <script lang="ts">
 	import { cn } from '$lib/utils'
-	import { getContext } from 'svelte'
+	import { getContext, setContext, type Snippet } from 'svelte'
 	import CellResolver from './cell-resolver.svelte'
 
 	let {
 		cell,
+		options,
 		onupdate,
 		onremove,
 	}: {
 		cell: Dashboard.Cell
+		options?: Snippet
 		onupdate: (u: Partial<Dashboard.Cell>) => void
 		onremove: () => void
 	} = $props()
 
 	const grid = getContext<Dashboard.GridContext>('grid')
+
+	let widgetOptions = $state<Snippet | undefined>(undefined)
+	setContext<Dashboard.CellContext>('cell', {
+		registerOptions: (snippet) => {
+			widgetOptions = snippet
+		},
+	})
 
 	type Side = 'top' | 'right' | 'bottom' | 'left'
 	type DragState = {
@@ -93,7 +102,7 @@
 <article
 	bind:this={articleEl}
 	data-cell-id={cell.id}
-	class="relative border border-current {cursor} max-md:col-span-1!"
+	class="relative border border-current {cursor} overflow-x-clip max-md:col-span-1! not-edit:overflow-y-auto"
 	style:grid-column="span {cell.colSpan}"
 	style:grid-row="span {cell.rowSpan}"
 	style:order={cell.order}
@@ -150,15 +159,24 @@
 		role="presentation"
 	></div>
 
-	<!-- remove -->
+	<!-- options -->
 	<div
-		class="absolute top-0 right-0 m-ch flex gap-ch outline outline-dashed has-[.link]:px-ch max-md:hidden not-edit:hidden"
+		class="absolute inset-0 z-1 flex flex-col bg-background/25 backdrop-blur-[2px] max-md:hidden not-edit:hidden"
 	>
-		{#if confirming}
-			<button class="link" onclick={() => onremove()} aria-label="Confirm remove">Remove</button>
-			<button class="link" onclick={() => (confirming = false)} aria-label="Cancel">Cancel</button>
-		{:else}
-			<button class="size-lh" onclick={() => (confirming = true)} title="Remove"> &times; </button>
-		{/if}
+		<div
+			class="absolute top-0 right-0 m-ch flex gap-ch bg-background outline outline-dashed has-[.link]:px-ch"
+		>
+			{#if confirming}
+				<button class="link" onclick={() => onremove()} aria-label="Confirm remove">Remove</button>
+				<button class="link" onclick={() => (confirming = false)} aria-label="Cancel">Cancel</button
+				>
+			{:else}
+				<button class="size-lh" onclick={() => (confirming = true)} title="Remove">
+					&times;
+				</button>
+			{/if}
+		</div>
+
+		<div class="m-auto">{@render (widgetOptions ?? options)?.()}</div>
 	</div>
 </article>

@@ -49,7 +49,7 @@
 	bind:this={gridEl}
 	class="isolate grid gap-ch"
 	style:grid-template-columns={isMobile ? '1fr' : 'repeat(3, 1fr)'}
-	style:grid-auto-rows="10lh"
+	style:grid-auto-rows="12lh"
 >
 	{#each cells as cell (cell.id)}
 		<Cell {cell} onupdate={(u) => updateCell(cell.id, u)} onremove={() => removeCell(cell.id)} />

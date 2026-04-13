@@ -2,7 +2,7 @@ export const cells = $state<Dashboard.Cell[]>([])
 
 export const cellTypes: {
 	type: string
-}[] = [{ type: 'Bogus' }]
+}[] = [{ type: 'Bogus' }, { type: 'Calendar' }]
 
 let saveTimeout: ReturnType<typeof setTimeout>
 

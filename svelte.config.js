@@ -12,6 +12,10 @@ const config = {
 
 			return isExternalLibrary ? undefined : true
 		},
+
+		experimental: {
+			async: true,
+		},
 	},
 	kit: {
 		adapter: adapter(),

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Grid from '$ui/dashboard/grid.svelte'
-	import { cells } from '$ui/dashboard/store.svelte.ts'
+	import { cells } from '$ui/dashboard/store.svelte'
 
 	let { data } = $props()
 
