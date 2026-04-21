@@ -60,13 +60,13 @@
 	</div>
 </fieldset>
 
-<div class="grid grid-cols-7 text-center">
+<div class="grid grid-cols-7 gap-px bg-foreground text-center">
 	{#each ['M', 'T', 'W', 'T', 'F', 'S', 'S'] as label}
-		<div class="opacity-50">{label}</div>
+		<div class="text-background">{label}</div>
 	{/each}
 
 	{#each days as { date, overflow } (date.getTime())}
-		<div class={cn(overflow && 'opacity-25', isToday(date) && 'bg-accent')}>
+		<div class={cn('bg-background', overflow && 'text-current/25', isToday(date) && 'bg-accent')}>
 			<div>{date.getDate()}</div>
 
 			{@render cells?.({ date })}

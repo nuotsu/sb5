@@ -1,5 +1,6 @@
 <script lang="ts">
 	import fetchMLB from '$lib/mlb/fetch'
+	import TeamLogo from '$ui/team-logo.svelte'
 	import { getContext } from 'svelte'
 	import Month from './month.svelte'
 
@@ -23,7 +24,9 @@
 	}
 </script>
 
-<Month {cells} />
+<div class="team-schedule flex min-h-full flex-col">
+	<Month {cells} />
+</div>
 
 {#snippet cells({ date }: { date: Date })}
 	{#await fetchTeamSchedule(date)}
@@ -32,9 +35,10 @@
 		{#each games as game (game.gamePk)}
 			{@const opponent =
 				game.teams.home.team.id.toString() === teamId ? game.teams.away.team : game.teams.home.team}
+
 			<div>
-				{#if opponent.id.toString() === teamId}@{:else}vs{/if}
-				{opponent.abbreviation}
+				{#if game.teams.away.team.id.toString() === teamId}@{:else}vs{/if}
+				<TeamLogo team={opponent} class="inline-block size-lh" />
 			</div>
 		{/each}
 	{/await}
@@ -48,3 +52,12 @@
 		</select>
 	</fieldset>
 {/snippet}
+
+<style>
+	.team-schedule {
+		:global(> .grid) {
+			flex-grow: 1;
+			grid-template-rows: 1lh auto;
+		}
+	}
+</style>

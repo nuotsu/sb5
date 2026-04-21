@@ -102,7 +102,7 @@
 <article
 	bind:this={articleEl}
 	data-cell-id={cell.id}
-	class="relative border border-current {cursor} overflow-x-clip max-md:col-span-1! not-edit:overflow-y-auto"
+	class="relative border border-current {cursor} overflow-clip max-md:col-span-1! not-edit:overflow-y-auto"
 	style:grid-column="span {cell.colSpan}"
 	style:grid-row="span {cell.rowSpan}"
 	style:order={cell.order}
